@@ -1,0 +1,342 @@
+/*src/index.css */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* =========================================================
+   THEME VARIABLES
+   Light theme = minimalist neutral palette (default, :root)
+   Dark theme  = night sky palette (body[data-theme="dark"])
+   Every component should reference these variable names so
+   dark mode "just works" without per-selector overrides.
+   ========================================================= */
+
+:root {
+    /* --- Warm Floral (Light) --- */
+    --primary: #4A423E;        /* neutral warm charcoal — headings, underlines, hover states, filter buttons */
+    --accent: #241B19;         /* near-black brown — buttons only */
+    --accent-2: #B99C7B;       /* warm tan — subtle secondary highlights (skill levels etc.) */
+    --tile-title: #6E4548;     /* maroon/wine — project tile titles ONLY */
+    --highlight-accent: #DE7E82; /* blush coral — hero name highlight ONLY, the one small pop of color */
+    --text: #201A18;           /* near-black brown body text */
+    --text-secondary: #5A4642; /* warm brown-gray — subtext, paragraphs */
+    --bg: #F5EDE9;             /* cream/blush — page background */
+    --bg-alt: #ECDCD4;         /* deeper cream — alternating section backgrounds */
+    --surface: #E7D3C4;        /* warm beige — card / tile backgrounds, stands out from page bg */
+    --border: #D9C0AF;         /* soft warm tan border */
+    --white: #FFFFFF;
+    --btn-text: #FFFFFF;       /* text color on filled buttons, both themes */
+
+    /* --- Shared tokens (same in both themes) --- */
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-pill: 999px;
+
+    --shadow-sm: 0 2px 10px rgba(20, 20, 30, 0.06);
+    --shadow-md: 0 10px 30px rgba(20, 20, 30, 0.08);
+    --shadow-hover: 0 14px 34px rgba(20, 20, 30, 0.12);
+
+    --transition: all 0.25s ease;
+
+    --font-main: 'Segoe UI', 'Inter', Tahoma, Geneva, Verdana, sans-serif;
+
+    --hero-gradient: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
+}
+
+/* --- Night Sky (Dark) --- */
+/* --- Night Sky (Dark) --- */
+body[data-theme="dark"] {
+  --bg: #0A0A12;
+  --bg-alt: #0F0E1A;
+  --surface: #15141F;
+  --border: #242236;
+
+  --text: #EAEAF2;
+  --text-secondary: #8B8AA3;
+  --white: #EAEAF2;
+
+  --primary: #3785D8;
+  --accent: #BF8CE1;
+  --accent-2: #E893C5;
+  --tile-title: #EAEAF2;
+  --highlight-accent: #BF8CE1;
+
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.6);
+  --shadow-hover: 0 10px 30px rgba(191, 140, 225, 0.15);
+
+  --hero-gradient: linear-gradient(180deg, #0F0E1A 0%, #0A0A12 100%);
+}
+
+/* === BASE === */
+html, body, #root {
+    min-height: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: var(--font-main);
+    font-size: 17px;
+    color: var(--text);
+    line-height: 1.6;
+    background-color: var(--bg);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.app-shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.page-content {
+    flex: 1;
+}
+
+.container {
+    width: min(1200px, 100% - 40px);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* === SECTION STYLES === */
+section:not(.featured-section) {
+    padding: 60px 0;
+}
+
+section h2 {
+    text-align: center;
+    font-size: 2.6rem;
+    margin-bottom: 40px;
+    color: var(--primary);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+section h2::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 3px;
+    background: var(--primary);
+    margin: 14px auto 0;
+    border-radius: var(--radius-pill);
+}
+
+/* === BUTTONS === */
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: var(--transition);
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: var(--btn-text);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+    filter: brightness(1.05);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border-color: var(--border);
+}
+
+.btn-secondary:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.filter-btn {
+    padding: 8px 22px;
+    background: transparent;
+    border: 2px solid var(--border);
+    color: var(--text-secondary);
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+    margin-right: 12px;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--white);
+}
+
+.filter-btn:last-child {
+    margin-right: 0;
+}
+
+/* Theme toggle button (used by Navbar) */
+.theme-toggle {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    transition: var(--transition);
+}
+
+.theme-toggle:hover {
+    border-color: var(--primary);
+    transform: translateY(-1px);
+}
+
+/* === PROJECTS PAGE === */
+.projects-header {
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.project-filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.projects-page {
+    padding-top: 40px;
+    padding-bottom: 60px;
+}
+
+@media (max-width: 768px) {
+    .projects-header {
+        align-items: center;
+        text-align: center;
+    }
+}
+
+/* Generic card surface — reuse this class on project cards / skill cards
+   if you want a single source of truth for the "tile" look */
+.project-card,
+.skill-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.project-card:hover,
+.skill-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-4px);
+}
+
+/* Tag pills */
+.tag {
+    display: inline-block;
+    background: var(--bg-alt);
+    color: var(--primary);
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin: 4px 6px 4px 0;
+}
+
+/* === ABOUT SECTION === */
+.about-section {
+    padding: 40px 0;
+}
+
+.about-wrapper {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    align-items: center;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.about-image {
+    display: flex;
+    justify-content: center;
+}
+
+.about-image img {
+    width: 100%;
+    max-width: 280px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 6px solid var(--accent);
+    box-shadow: var(--shadow-md);
+}
+
+.about-copy h1 {
+    font-size: 2.75rem;
+    margin-bottom: 20px;
+    color: var(--text);
+    letter-spacing: -0.02em;
+}
+
+.about-copy p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 860px) {
+    .about-wrapper {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .about-image {
+        margin-bottom: 25px;
+    }
+}
+
+/* === FORM ELEMENTS (contact page) === */
+input,
+textarea {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--text-secondary);
+}
+
+label {
+    color: var(--text);
+    font-weight: 600;
+}

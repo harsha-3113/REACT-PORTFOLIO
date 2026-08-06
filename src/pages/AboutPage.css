@@ -1,0 +1,22 @@
+/* AboutPage.css
+   (repurposed: the old .about-section/.about-wrapper rules here were
+   an exact stale duplicate of AboutSection.css and did nothing useful
+   — replaced with the Skills panel wrapper instead) */
+
+.skills-panel {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  box-shadow: var(--shadow-sm);
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.skills-section h2 {
+  margin-bottom: 32px;
+}
